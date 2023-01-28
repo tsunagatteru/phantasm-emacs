@@ -4,7 +4,7 @@
 #+OPTIONS: num:nil
 The cutest Emacs distribution
 
-[[./gnumarisa.png]]
+[[./yukari.png]]
 * Introduction
 Witchmacs is a very simple and basic configuration file for Emacs. From here you can edit, remove, or add many aspects of Emacs you want. I encourage you to do so, because Emacs works best when it's customized to your own liking!
 * Why would I use this?
@@ -314,7 +314,7 @@ The frontend of Witchmacs; without this there'd be no Marisa in your Emacs start
     (dashboard-setup-startup-hook)
     (setq dashboard-items '((recents . 5)))
     (setq dashboard-banner-logo-title "W I T C H M A C S - The cutest Emacs distribution!")
-    (setq dashboard-startup-banner "~/.emacs.d/marivector.png")
+    (setq dashboard-startup-banner "~/.emacs.d/yukari.png")
     (setq dashboard-center-content t)
     (setq dashboard-show-shortcuts nil)
     (setq dashboard-set-init-info t)
