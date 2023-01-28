@@ -3,11 +3,11 @@
 
 #+LANGUAGE: en
 #+OPTIONS: num:nil
-Emacs distribution
+~/.emacs.d/
 
 [[./yukari.png]]
 * Introduction
-This is a very simple and basic configuration file for Emacs. From here you can edit, remove, or add many aspects of Emacs you want. I encourage you to do so, because Emacs works best when it's customized to your own liking!
+My personal emacs config, based on [[https://github.com/snackon/Witchmacs][Witchmacs]] and [[https://github.com/pprobst/yukimacs][Yukimacs]].
 * Quick install
 #+BEGIN_SRC 
 git clone https://github.com/tsunagatteru/phantasm-emacs ~/.emacs.d
@@ -23,6 +23,9 @@ Also, to get autocompletion on C, C++ and Java files, you'll need to install the
 (optional) =mvn= maven for java project handling through =meghanada=
 * Things-to-do
 Write thins to-do
+Make evil-org default for org files
+Table of contents
+Better dashboard picture
 * QoL section
 Minor quality-of-life modifications for a more pleasant Emacs experience
 ** Enable line numbers
@@ -105,14 +108,6 @@ Emacs breaks certain modes when it has line-numbers-mode enabled, (like docview 
 #+BEGIN_SRC emacs-lisp
   (defalias 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
-** Easier resize bindigs
-Super - Control - <arrow>
-#+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "s-C-<left>") 'shrink-window-horizontally)
-  (global-set-key (kbd "s-C-<right>") 'enlarge-window-horizontally)
-  (global-set-key (kbd "s-C-<down>") 'shrink-window)
-  (global-set-key (kbd "s-C-<up>") 'enlarge-window)
-#+END_SRC
 ** Highlight current line
 #+BEGIN_SRC emacs-lisp
   (global-hl-line-mode t)
@@ -140,10 +135,6 @@ One of the main selling points of Emacs! no Emacs distribution is complete witho
     :ensure t)
 #+END_SRC
 * Eshell
-** Why Eshell?
-We are using Emacs, so we might as well implement as many tools from our workflow into it as possible
-*** Caveats
-Eshell cannot handle ncurses programs and in certain interpreters (Python, GHCi) selecting previous commands does not work (for now). I recommend using eshell for light cli work, and using your external terminal emulator of choice for heavier tasks
 ** Prompt
 #+BEGIN_SRC emacs-lisp
   (setq eshell-prompt-regexp "^[^αλ\n]*[αλ] ")
@@ -215,37 +206,9 @@ Diminish hides minor modes to prevent cluttering your mode line
   (use-package diminish
     :ensure t)
 #+END_SRC
-*** Historical
-22/04/2019: This macro was provided by user [[https://gist.github.com/ld34/44d100b79964407e5ddf41035e3cd32f][ld43]] after I couldn’t figure out how to make diminish work by being at the top of the config file.
-
-#+BEGIN_SRC emacs-lisp
-  ;(defmacro diminish-built-in (&rest modes)
-  ;  "Accepts a list MODES of built-in emacs modes and generates `with-eval-after-load` diminish forms based on the file implementing the mode functionality for each mode."
-  ;  (declare (indent defun))
-  ;  (let* ((get-file-names (lambda (pkg) (file-name-base (symbol-file pkg))))
-  ;	 (diminish-files (mapcar get-file-names modes))
-  ;	 (zip-diminish   (-zip modes diminish-files)))
-  ;    `(progn
-  ;       ,@(cl-loop for (mode . file) in zip-diminish
-  ;		  collect `(with-eval-after-load ,file
-  ;			     (diminish (quote ,mode)))))))
-  ; This bit goes in init.el
-  ;(diminish-built-in
-  ;  beacon-mode
-  ;  which-key-mode
-  ;  page-break-lines-mode
-  ;  undo-tree-mode
-  ;  eldoc-mode
-  ;  abbrev-mode
-  ;  irony-mode
-  ;  company-mode
-  ;  meghanada-mode)
-#+END_SRC
-
-27/05/2019: Since the diminish functionality was always built-in in use-package, there was never a point in using a diminish config. lol silly me
 ** Initialize =spaceline=
 *** Description
-I tried spaceline and didn't like it. What I did like was its theme
+Spaceline, to use it`s theme
 *** Code
 #+BEGIN_SRC emacs-lisp
   (use-package spaceline
@@ -253,7 +216,7 @@ I tried spaceline and didn't like it. What I did like was its theme
 #+END_SRC
 ** Initialize =powerline= and utilize the spaceline theme
 *** Description
-I prefer powerline over spaceline, but the default powerline themes don't work for me for whatever reason, so I use the spaceline theme
+Thing at the bottom that shows current mode and other stuff
 *** Code
 #+BEGIN_SRC emacs-lisp
   (use-package powerline
@@ -304,14 +267,9 @@ The frontend of Emacs
       (setq dashboard-navigator-buttons
             `(;; line1
               ((,nil
-                "github"
+                "Github"
                 "Open github page on your browser"
                 (lambda (&rest _) (browse-url "https://github.com/tsunagatteru/phantasm-emacs"))
-                'default)
-               (nil
-                "Crash course"
-                "Open Introduction to Emacs"
-                (lambda (&rest _) (find-file "~/.emacs.d/Witcheat.org"))
                 'default)
                (nil
                 "Update"
@@ -382,16 +340,6 @@ You might find beacon an unnecesary package but I find it very neat. It briefly 
     :init
     (beacon-mode 1))
 #+END_SRC
-** Initialize =avy=
-*** Description
-Avy is a very useful package; instead of having to move your cursor to a line that is very far away, just do M - s and type the character that you want to move to
-*** Code
-#+BEGIN_SRC emacs-lisp
-  (use-package avy
-	:ensure t
-	:bind
-	("M-s" . avy-goto-char))
-#+END_SRC
 ** Initialize =switch-window=
 *** Description
 Switch window is a neat package because instead of having to painstakingly do C - x o until you're in the window you want  to edit, you can just do C - x o and pick the one you want to move to according to the letter it is assigned to
@@ -408,28 +356,6 @@ Switch window is a neat package because instead of having to painstakingly do C 
 		  '("a" "s" "d" "f" "j" "k" "l"))
 	:bind
 	([remap other-window] . switch-window))
-#+END_SRC
-** Initialize =ido= and =ido-vertical=
-*** Description
-For the longest time I used the default way of switching and killing buffers in Emacs. Same for finding files. Ido-mode made these three tasks IMMENSELY easier and more intuitive. Please not that I still use the default way M - x works because I believe all you really need for it is which-key
-*** Code
-#+BEGIN_SRC emacs-lisp
-  (use-package ido
-    :init
-    (ido-mode 1)
-    :config
-    (setq ido-enable-flex-matching nil)
-    (setq ido-create-new-buffer 'always)
-    (setq ido-everywhere t))
-
-  (use-package ido-vertical-mode
-    :ensure t
-    :init
-    (ido-vertical-mode 1))
-  ; This enables arrow keys to select while in ido mode. If you want to
-  ; instead use the default Emacs keybindings, change it to
-  ; "'C-n-and-C-p-only"
-  (setq ido-vertical-define-keys 'C-n-C-p-up-and-down)
 #+END_SRC
 ** Initialize =async=
 *** Description
@@ -611,7 +537,7 @@ Irony is the company backend for C and C++
 #+END_SRC
 ** Java
 *** Description
-I use meghanada to provide very neat autocompletion when editing Java files. I use it mainly for autocompletion but there's a ton of other things it can do, automatic imports, for example.
+Java autocomopletion and other stuff.
 *** Code
 #+BEGIN_SRC emacs-lisp
   (use-package meghanada
