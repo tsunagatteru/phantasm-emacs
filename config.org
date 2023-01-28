@@ -22,6 +22,7 @@ Also, to get autocompletion on C, C++ and Java files, you'll need to install the
 
 (optional) =mvn= maven for java project handling through =meghanada=
 * Things-to-do
+Write thins to-do
 * QoL section
 Minor quality-of-life modifications for a more pleasant Emacs experience
 ** Enable line numbers
@@ -267,68 +268,68 @@ I prefer powerline over spaceline, but the default powerline themes don't work f
 The frontend of Emacs
 *** Code
 #+BEGIN_SRC emacs-lisp
-  (use-package dashboard
-    :ensure t
-    :defer nil
-    :preface
-    (defun update-config ()
-      "Update to the latest version."
-      (interactive)
-      (let ((dir (expand-file-name user-emacs-directory)))
-        (if (file-exists-p dir)
-            (progn
-              (message "Updating!")
-              (cd dir)
-              (shell-command "git pull")
-              (message "Update finished. Switch to the messages buffer to see changes and then restart Emacs"))
-          (message "\"%s\" doesn't exist." dir))))
+    (use-package dashboard
+      :ensure t
+      :defer nil
+      :preface
+      (defun update-config ()
+        "Update to the latest version."
+        (interactive)
+        (let ((dir (expand-file-name user-emacs-directory)))
+          (if (file-exists-p dir)
+              (progn
+                (message "Updating!")
+                (cd dir)
+                (shell-command "git pull")
+                (message "Update finished. Switch to the messages buffer to see changes and then restart Emacs"))
+            (message "\"%s\" doesn't exist." dir))))
 
-    (defun create-scratch-buffer ()
-      "Create a scratch buffer"
-      (interactive)
-      (switch-to-buffer (get-buffer-create "*scratch*"))
-      (lisp-interaction-mode))
-    :config
-    (dashboard-setup-startup-hook)
-    (setq dashboard-items '((recents . 5)))
-    (setq dashboard-banner-logo-title "P H A N T A S M - Emacs")
-    (setq dashboard-startup-banner "~/.emacs.d/yukari.png")
-    (setq dashboard-center-content t)
-    (setq dashboard-show-shortcuts nil)
-    (setq dashboard-set-init-info t)
-    (setq dashboard-init-info (format "%d packages loaded in %s"
-                                      (length package-activated-list) (emacs-init-time)))
-    (setq dashboard-set-footer nil)
-    (setq dashboard-set-navigator t)
-    (setq dashboard-navigator-buttons
-          `(;; line1
-            ((,nil
-              "github"
-              "Open github page on your browser"
-              (lambda (&rest _) (browse-url "https://github.com/tsunagatteru/phantasm-emacs"))
-              'default)
-             (nil
-              "Crash course"
-              "Open Introduction to Emacs"
-              (lambda (&rest _) (find-file "~/.emacs.d/Witcheat.org"))
-              'default)
-             (nil
-              "Update"
-              "Get the latest update. Check out the github commits for changes!"
-              (lambda (&rest _) (update-config))
-              'default)
-             )
-            ;; line 2
-            ((,nil
-              "Open scratch buffer"
-              "Switch to the scratch buffer"
-              (lambda (&rest _) (create-scratch-buffer))
-              'default)
-             (nil
-              "Open config.org"
-              "Open configuration file for easy editing"
-              (lambda (&rest _) (find-file "~/.emacs.d/config.org"))
-              'default)))))
+      (defun create-scratch-buffer ()
+        "Create a scratch buffer"
+        (interactive)
+        (switch-to-buffer (get-buffer-create "*scratch*"))
+        (lisp-interaction-mode))
+      :config
+      (dashboard-setup-startup-hook)
+      (setq dashboard-items '((recents . 5)))
+      (setq dashboard-center-content t)
+      (setq dashboard-banner-logo-title "\t ")
+      (setq dashboard-startup-banner "~/.emacs.d/yukari.png")
+      (setq dashboard-show-shortcuts nil)
+      (setq dashboard-set-init-info t)
+      (setq dashboard-init-info (format "%d packages loaded in %s"
+                                        (length package-activated-list) (emacs-init-time)))
+      (setq dashboard-set-footer nil)
+      (setq dashboard-set-navigator t)
+      (setq dashboard-navigator-buttons
+            `(;; line1
+              ((,nil
+                "github"
+                "Open github page on your browser"
+                (lambda (&rest _) (browse-url "https://github.com/tsunagatteru/phantasm-emacs"))
+                'default)
+               (nil
+                "Crash course"
+                "Open Introduction to Emacs"
+                (lambda (&rest _) (find-file "~/.emacs.d/Witcheat.org"))
+                'default)
+               (nil
+                "Update"
+                "Get the latest update. Check out the github commits for changes!"
+                (lambda (&rest _) (update-config))
+                'default)
+               )
+              ;; line 2
+              ((,nil
+                "Open scratch buffer"
+                "Switch to the scratch buffer"
+                (lambda (&rest _) (create-scratch-buffer))
+                'default)
+               (nil
+                "Open config.org"
+                "Open configuration file for easy editing"
+                (lambda (&rest _) (find-file "~/.emacs.d/config.org"))
+                'default)))))
 #+END_SRC
 ** Initialize =which-key=
 *** Description
