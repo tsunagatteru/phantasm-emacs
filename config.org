@@ -114,33 +114,40 @@ Minor quality-of-life modifications for a more pleasant Emacs experience
 * =Org= mode
 Everything org mode related
 #+BEGIN_SRC emacs-lisp
-  (use-package org
-      :config
-      (add-hook 'org-mode-hook 'org-indent-mode)
-      (add-hook 'org-mode-hook
-                '(lambda ()
-                   (visual-line-mode 1))))
-  
+    (use-package org
+        :config
+        (add-hook 'org-mode-hook 'org-indent-mode)
+        (add-hook 'org-mode-hook
+                  '(lambda ()
+                     (visual-line-mode 1)))
+    )
+
+
   (setq org-todo-keywords
-        '((sequence "TODO" "DOING" "|" "DONE" "CANCELED")))
-
+          '((sequence
+             "TODO(t)"
+             "WAIT(w)"
+             "PROCES(p)"
+             "|"                 ; Separates "active" and "inactive" states.
+             "DONE(d)"
+             "CANCELLED(c)" )))
     (use-package org-indent
-      :diminish org-indent-mode)
+        :diminish org-indent-mode)
 
-  (use-package htmlize
-      :ensure t)
+    (use-package htmlize
+        :ensure t)
 
-    ;; Evil bindings for Org mode.
-  (use-package evil-org
-      :ensure t
-      :after (evil org)
-      :config
-      (add-hook 'org-mode-hook 'evil-org-mode)
-      (add-hook 'evil-org-mode-hook
-                (lambda ()
-                  (evil-org-set-key-theme '(navigation insert textobjects additional calendar))))
-      (require 'evil-org-agenda)
-      (evil-org-agenda-set-keys))
+      ;; Evil bindings for Org mode.
+    (use-package evil-org
+        :ensure t
+        :after (evil org)
+        :config
+        (add-hook 'org-mode-hook 'evil-org-mode)
+        (add-hook 'evil-org-mode-hook
+                  (lambda ()
+                    (evil-org-set-key-theme '(navigation insert textobjects additional calendar))))
+        (require 'evil-org-agenda)
+        (evil-org-agenda-set-keys))
 #+END_SRC
 * Eshell
 ** Prompt
