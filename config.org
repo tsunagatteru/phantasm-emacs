@@ -1,6 +1,5 @@
 #+STARTUP: overview
 #+TITLE: phantasm-emacs
-
 #+LANGUAGE: en
 #+OPTIONS: num:nil
 ~/.emacs.d/
@@ -133,6 +132,17 @@ One of the main selling points of Emacs! no Emacs distribution is complete witho
 
   (use-package htmlize
     :ensure t)
+  ;; Evil bindings for Org mode.
+  (use-package evil-org
+    :ensure t
+    :after (evil org)
+    :config
+    (add-hook 'org-mode-hook 'evil-org-mode)
+    (add-hook 'evil-org-mode-hook
+              (lambda ()
+                (evil-org-set-key-theme '(navigation insert textobjects additional calendar))))
+    (require 'evil-org-agenda)
+    (evil-org-agenda-set-keys))
 #+END_SRC
 * Eshell
 ** Prompt
