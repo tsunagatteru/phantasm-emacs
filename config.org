@@ -192,6 +192,21 @@ Everything org mode related
 
   (global-set-key (kbd "<s-C-return>") 'eshell-other-window)
 #+END_SRC
+*** Visiting the configuration
+#+begin_src emacs-lisp
+  (defun config-visit()
+    (interactive)
+    (find-file "~/.emacs.d/config.org"))
+  (global-set-key (kbd "C-c e") 'config-visit)
+#+end_src
+*** Reloading the configuration
+#+BEGIN_SRC emacs-lisp
+  (defun config-reload ()
+    "Reloads ~/.emacs.d/config.org at runtine"
+    (interactive)
+    (org-babel-load-file (expand-file-name "~/.emacs.d/config.org")))
+  (global-set-key (kbd "C-c r") 'config-reload)
+#+END_SRC
 * Use-package section
 ** =auto-package-update=
 Automatically updates and removes old packages
