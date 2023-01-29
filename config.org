@@ -15,6 +15,8 @@ git clone https://github.com/tsunagatteru/phantasm-emacs ~/.emacs.d
 =clang= as backend for C and C++ autocompletion
 
 =llvm= to install irony server
+
+==MIT/GNU Scheme== for geiser to work
 * QoL section
 Minor quality-of-life modifications for a more pleasant Emacs experience
 ** Enable line numbers
@@ -519,4 +521,10 @@ Irony is the company backend for C and C++
     :hook
     ((c++-mode c-mode) . irony-mode)
     ('irony-mode-hook) . 'irony-cdb-autosetup-compile-options)
+#+END_SRC
+
+** Scheme
+#+BEGIN_SRC emacs-lisp
+  (use-package geiser-mit
+    :ensure t)
 #+END_SRC
