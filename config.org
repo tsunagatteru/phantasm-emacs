@@ -15,15 +15,9 @@ git clone https://github.com/tsunagatteru/phantasm-emacs ~/.emacs.d
 =clang= as backend for C and C++ autocompletion
 
 =llvm= to install irony server
-* Things-to-do
-Write thins to-do
-Make evil-org default for org files
-Table of contents
-Better dashboard picture
 * QoL section
 Minor quality-of-life modifications for a more pleasant Emacs experience
 ** Enable line numbers
-Emacs breaks certain modes when it has line-numbers-mode enabled, (like docview or ansi-term) so I utilize the approach of only enabling it on some major modes rather than globally
 #+BEGIN_SRC emacs-lisp
   (add-hook 'prog-mode-hook 'display-line-numbers-mode)
   (add-hook 'text-mode-hook 'display-line-numbers-mode)
@@ -111,9 +105,7 @@ Emacs breaks certain modes when it has line-numbers-mode enabled, (like docview 
 (setq use-package-always-defer t)
 #+END_SRC
 * =Org= mode
-** Description
-One of the main selling points of Emacs! no Emacs distribution is complete without sensible and well-defined org-mode defaults
-** Code
+Everything org mode related
 #+BEGIN_SRC emacs-lisp
   (use-package org
     :config
@@ -190,10 +182,8 @@ One of the main selling points of Emacs! no Emacs distribution is complete witho
   (global-set-key (kbd "<s-C-return>") 'eshell-other-window)
 #+END_SRC
 * Use-package section
-** Initialize =auto-package-update=
-*** Description
-Auto-package-update automatically updates and removes old packages
-*** Code
+** =auto-package-update=
+Automatically updates and removes old packages
 #+BEGIN_SRC emacs-lisp
   (use-package auto-package-update
     :defer nil
@@ -203,26 +193,20 @@ Auto-package-update automatically updates and removes old packages
     (setq auto-package-update-hide-results t)
     (auto-package-update-maybe))
 #+END_SRC
-** Initialize =diminish=
-*** Description
-Diminish hides minor modes to prevent cluttering your mode line
-*** Code
+** =diminish=
+Hides minor modes to prevent cluttering your mode line
 #+BEGIN_SRC emacs-lisp
   (use-package diminish
     :ensure t)
 #+END_SRC
-** Initialize =spaceline=
-*** Description
+** =spaceline=
 Spaceline, to use it`s theme
-*** Code
 #+BEGIN_SRC emacs-lisp
   (use-package spaceline
     :ensure t)
 #+END_SRC
-** Initialize =powerline= and utilize the spaceline theme
-*** Description
+** =powerline= 
 Thing at the bottom that shows current mode and other stuff
-*** Code
 #+BEGIN_SRC emacs-lisp
   (use-package powerline
 	:ensure t
@@ -231,10 +215,8 @@ Thing at the bottom that shows current mode and other stuff
 	:hook
 	('after-init-hook) . 'powerline-reset)
 #+END_SRC
-** Initialize =dashboard=
-*** Description
+** =dashboard=
 The frontend of Emacs
-*** Code
 #+BEGIN_SRC emacs-lisp
     (use-package dashboard
       :ensure t
@@ -294,10 +276,8 @@ The frontend of Emacs
                 (lambda (&rest _) (find-file "~/.emacs.d/config.org"))
                 'default)))))
 #+END_SRC
-** Initialize =which-key=
-*** Description
-Incredibly useful package; if you are in the middle of a command and don't know what to type next, just wait a second and you'll get a nice buffer with all possible completions
-*** Code
+** =which-key=
+Command completeion
 #+BEGIN_SRC emacs-lisp
   (use-package which-key
     :ensure t
@@ -305,19 +285,15 @@ Incredibly useful package; if you are in the middle of a command and don't know 
     :init
     (which-key-mode))
 #+END_SRC
-** Initialize =swiper=
-*** Description
-When doing C-s to search, you get this very nice and neat mini-buffer that you can traverse with the arrow keys (or C-n and C-p) and then press <RET> to select where you want to go
-*** Code
+** =swiper=
+Minibuffer for C-s search
 #+BEGIN_SRC emacs-lisp
   (use-package swiper
 	:ensure t
 	:bind ("C-s" . 'swiper))
 #+END_SRC
-** Initialize =evil= mode
-*** Description
-Vim keybindings in Emacs.
-*** Code
+** =evil=
+Vim keybindings
 #+BEGIN_SRC emacs-lisp
   (use-package evil
     :ensure t
@@ -334,10 +310,8 @@ Vim keybindings in Emacs.
   ;  :config
   ;  (evil-collection-init))
 #+END_SRC
-** Initialize =beacon=
-*** Description
-You might find beacon an unnecesary package but I find it very neat. It briefly highlights the cursor position when switching to a new window or buffer
-*** Code
+** =beacon=
+Highlights the cursor position when switching to a new window or buffer
 #+BEGIN_SRC emacs-lisp
   (use-package beacon
     :ensure t
@@ -345,10 +319,8 @@ You might find beacon an unnecesary package but I find it very neat. It briefly 
     :init
     (beacon-mode 1))
 #+END_SRC
-** Initialize =switch-window=
-*** Description
-Switch window is a neat package because instead of having to painstakingly do C - x o until you're in the window you want  to edit, you can just do C - x o and pick the one you want to move to according to the letter it is assigned to
-*** Code
+** =switch-window=
+C-x o window switching keys
 #+BEGIN_SRC emacs-lisp
   (use-package switch-window
 	:ensure t
@@ -362,34 +334,28 @@ Switch window is a neat package because instead of having to painstakingly do C 
 	:bind
 	([remap other-window] . switch-window))
 #+END_SRC
-** Initialize =async=
-*** Description
+** =async=
 Utilize asynchronous processes whenever possible
-*** Code
 #+BEGIN_SRC emacs-lisp
   (use-package async
 	:ensure t
 	:init
 	(dired-async-mode 1))
 #+END_SRC
-** Initialize =page-break-lines=
-*** Code
+** =page-break-lines=
 #+BEGIN_SRC emacs-lisp
   (use-package page-break-lines
     :ensure t
     :diminish (page-break-lines-mode visual-line-mode))
 #+END_SRC
-** Initialize =undo-tree=
-*** Code
+** =undo-tree=
 #+BEGIN_SRC emacs-lisp
   (use-package undo-tree
     :ensure t
     :diminish undo-tree-mode)
 #+END_SRC
-** Initialize =treemacs=
-*** Description
-Neat side-bar file and project explorer
-*** Code
+** =treemacs=
+Side-bar file and project explorer
 #+BEGIN_SRC emacs-lisp
   (use-package treemacs
     :ensure t
@@ -460,18 +426,8 @@ Neat side-bar file and project explorer
       :ensure t
       :config (treemacs-icons-dired-mode))
 #+END_SRC
-** Initialize =magit=
-*** Description
-Git porcelain for Emacs
-*** Code
-#+BEGIN_SRC emacs-lisp
-  (use-package magit
-    :ensure t)
-#+END_SRC
-** Initialize =ido= and =ido-vertical=
-*** Description
+** =ido= and =ido-vertical=
 Better buffer switching and killing
-*** Code
 #+BEGIN_SRC emacs-lisp
   (use-package ido
     :init
@@ -490,23 +446,19 @@ Better buffer switching and killing
   ; "'C-n-and-C-p-only"
   (setq ido-vertical-define-keys 'C-n-C-p-up-and-down)
 #+END_SRC
-** Built-in entry: =eldoc=
-*** Code
+** =eldoc=
 #+BEGIN_SRC emacs-lisp
   (use-package eldoc
     :diminish eldoc-mode)
 #+END_SRC
-** Built-in entry: =abbrev=
-*** Code
+** =abbrev=
 #+BEGIN_SRC emacs-lisp
   (use-package abbrev
     :diminish abbrev-mode)
 #+END_SRC
 * Programming section
-** Initialize =company=
-*** Description
+** =company=
 Company is the autocompletion frontend that takes all the backends and gives you possible autocompletions when writing programs
-*** Code
 #+BEGIN_SRC emacs-lisp
   (use-package company
     :ensure t
@@ -522,10 +474,8 @@ Company is the autocompletion frontend that takes all the backends and gives you
     :hook
     ((java-mode c-mode c++-mode) . company-mode))
 #+END_SRC
-** Initialize =yasnippet=
-*** Description
+** =yasnippet=
 Yasnippet provides useful snippets, nothing to do with Company but still useful when used in conjuction with it
-*** Code
 #+BEGIN_SRC emacs-lisp
   (use-package yasnippet
     :ensure t
@@ -538,10 +488,13 @@ Yasnippet provides useful snippets, nothing to do with Company but still useful 
   (use-package yasnippet-snippets
     :ensure t)
 #+END_SRC
+** =magit=
+#+BEGIN_SRC emacs-lisp
+  (use-package magit
+    :ensure t)
+#+END_SRC
 ** C & C++
-*** Description
 Irony is the company backend for C and C++
-*** Code
 #+BEGIN_SRC emacs-lisp
   (use-package company-c-headers
     :defer nil
