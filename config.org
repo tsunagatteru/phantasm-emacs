@@ -104,6 +104,11 @@ Minor quality-of-life modifications for a more pleasant Emacs experience
 #+BEGIN_SRC emacs-lisp
 (setq use-package-always-defer t)
 #+END_SRC
+** Fill spaces
+#+BEGIN_SRC emacs-lisp
+  ; (setq window-resize-pixelwise t)
+  (setq frame-resize-pixelwise t)
+#+END_SRC
 * =Org= mode
 Everything org mode related
 #+BEGIN_SRC emacs-lisp
