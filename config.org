@@ -81,17 +81,17 @@ Minor quality-of-life modifications for a more pleasant Emacs experience
 ** Creating a new window switches your cursor to it
 #+BEGIN_SRC emacs-lisp
   (defun split-and-follow-horizontally ()
-	(interactive)
-	(split-window-below)
-	(balance-windows)
-	(other-window 1))
+    (interactive)
+    (split-window-below)
+    (balance-windows)
+    (other-window 1))
   (global-set-key (kbd "C-x 2") 'split-and-follow-horizontally)
 
   (defun split-and-follow-vertically ()
-	(interactive)
-	(split-window-right)
-	(balance-windows)
-	(other-window 1))
+    (interactive)
+    (split-window-right)
+    (balance-windows)
+    (other-window 1))
   (global-set-key (kbd "C-x 3") 'split-and-follow-vertically)
 #+END_SRC
 ** Transform yes-or-no questions into y-or-n
@@ -104,39 +104,43 @@ Minor quality-of-life modifications for a more pleasant Emacs experience
 #+END_SRC
 ** Defer loading most packages for quicker startup times
 #+BEGIN_SRC emacs-lisp
-(setq use-package-always-defer t)
+  (setq use-package-always-defer t)
 #+END_SRC
 ** Fill spaces
 #+BEGIN_SRC emacs-lisp
-  ; (setq window-resize-pixelwise t)
+                                          ; (setq window-resize-pixelwise t)
   (setq frame-resize-pixelwise t)
 #+END_SRC
 * =Org= mode
 Everything org mode related
 #+BEGIN_SRC emacs-lisp
   (use-package org
-    :config
-    (add-hook 'org-mode-hook 'org-indent-mode)
-    (add-hook 'org-mode-hook
-              '(lambda ()
-                 (visual-line-mode 1))))
+      :config
+      (add-hook 'org-mode-hook 'org-indent-mode)
+      (add-hook 'org-mode-hook
+                '(lambda ()
+                   (visual-line-mode 1))))
+  
+  (setq org-todo-keywords
+        '((sequence "TODO" "DOING" "|" "DONE" "CANCELED")))
 
-  (use-package org-indent
-    :diminish org-indent-mode)
+    (use-package org-indent
+      :diminish org-indent-mode)
 
   (use-package htmlize
-    :ensure t)
-  ;; Evil bindings for Org mode.
+      :ensure t)
+
+    ;; Evil bindings for Org mode.
   (use-package evil-org
-    :ensure t
-    :after (evil org)
-    :config
-    (add-hook 'org-mode-hook 'evil-org-mode)
-    (add-hook 'evil-org-mode-hook
-              (lambda ()
-                (evil-org-set-key-theme '(navigation insert textobjects additional calendar))))
-    (require 'evil-org-agenda)
-    (evil-org-agenda-set-keys))
+      :ensure t
+      :after (evil org)
+      :config
+      (add-hook 'org-mode-hook 'evil-org-mode)
+      (add-hook 'evil-org-mode-hook
+                (lambda ()
+                  (evil-org-set-key-theme '(navigation insert textobjects additional calendar))))
+      (require 'evil-org-agenda)
+      (evil-org-agenda-set-keys))
 #+END_SRC
 * Eshell
 ** Prompt
@@ -153,7 +157,7 @@ Everything org mode related
               (propertize (eshell/pwd) 'face `(:foreground "#99CCFF"))))
            (if (= (user-uid) 0)
                (propertize " α " 'face `(:foreground "#FF6666"))
-           (propertize " λ " 'face `(:foreground "#A6E22E"))))))
+             (propertize " λ " 'face `(:foreground "#A6E22E"))))))
 
   (setq eshell-highlight-prompt nil)
 #+END_SRC
@@ -216,72 +220,72 @@ Spaceline, to use it`s theme
 Thing at the bottom that shows current mode and other stuff
 #+BEGIN_SRC emacs-lisp
   (use-package powerline
-	:ensure t
-	:init
-	(spaceline-spacemacs-theme)
-	:hook
-	('after-init-hook) . 'powerline-reset)
+    :ensure t
+    :init
+    (spaceline-spacemacs-theme)
+    :hook
+    ('after-init-hook) . 'powerline-reset)
 #+END_SRC
 ** =dashboard=
 The frontend of Emacs
 #+BEGIN_SRC emacs-lisp
-    (use-package dashboard
-      :ensure t
-      :defer nil
-      :preface
-      (defun update-config ()
-        "Update to the latest version."
-        (interactive)
-        (let ((dir (expand-file-name user-emacs-directory)))
-          (if (file-exists-p dir)
-              (progn
-                (message "Updating!")
-                (cd dir)
-                (shell-command "git pull")
-                (message "Update finished. Switch to the messages buffer to see changes and then restart Emacs"))
-            (message "\"%s\" doesn't exist." dir))))
+  (use-package dashboard
+    :ensure t
+    :defer nil
+    :preface
+    (defun update-config ()
+      "Update to the latest version."
+      (interactive)
+      (let ((dir (expand-file-name user-emacs-directory)))
+        (if (file-exists-p dir)
+            (progn
+              (message "Updating!")
+              (cd dir)
+              (shell-command "git pull")
+              (message "Update finished. Switch to the messages buffer to see changes and then restart Emacs"))
+          (message "\"%s\" doesn't exist." dir))))
 
-      (defun create-scratch-buffer ()
-        "Create a scratch buffer"
-        (interactive)
-        (switch-to-buffer (get-buffer-create "*scratch*"))
-        (lisp-interaction-mode))
-      :config
-      (dashboard-setup-startup-hook)
-      (setq dashboard-items '((recents . 5)))
-      (setq dashboard-center-content t)
-      (setq dashboard-banner-logo-title "\t ")
-      (setq dashboard-startup-banner "~/.emacs.d/yukari.png")
-      (setq dashboard-show-shortcuts nil)
-      (setq dashboard-set-init-info t)
-      (setq dashboard-init-info (format "%d packages loaded in %s"
-                                        (length package-activated-list) (emacs-init-time)))
-      (setq dashboard-set-footer nil)
-      (setq dashboard-set-navigator t)
-      (setq dashboard-navigator-buttons
-            `(;; line1
-              ((,nil
-                "Github"
-                "Open github page on your browser"
-                (lambda (&rest _) (browse-url "https://github.com/tsunagatteru/phantasm-emacs"))
-                'default)
-               (nil
-                "Update"
-                "Get the latest update. Check out the github commits for changes!"
-                (lambda (&rest _) (update-config))
-                'default)
-               )
-              ;; line 2
-              ((,nil
-                "Open scratch buffer"
-                "Switch to the scratch buffer"
-                (lambda (&rest _) (create-scratch-buffer))
-                'default)
-               (nil
-                "Open config.org"
-                "Open configuration file for easy editing"
-                (lambda (&rest _) (find-file "~/.emacs.d/config.org"))
-                'default)))))
+    (defun create-scratch-buffer ()
+      "Create a scratch buffer"
+      (interactive)
+      (switch-to-buffer (get-buffer-create "*scratch*"))
+      (lisp-interaction-mode))
+    :config
+    (dashboard-setup-startup-hook)
+    (setq dashboard-items '((recents . 5)))
+    (setq dashboard-center-content t)
+    (setq dashboard-banner-logo-title "\t ")
+    (setq dashboard-startup-banner "~/.emacs.d/yukari.png")
+    (setq dashboard-show-shortcuts nil)
+    (setq dashboard-set-init-info t)
+    (setq dashboard-init-info (format "%d packages loaded in %s"
+                                      (length package-activated-list) (emacs-init-time)))
+    (setq dashboard-set-footer nil)
+    (setq dashboard-set-navigator t)
+    (setq dashboard-navigator-buttons
+          `(;; line1
+            ((,nil
+              "Github"
+              "Open github page on your browser"
+              (lambda (&rest _) (browse-url "https://github.com/tsunagatteru/phantasm-emacs"))
+              'default)
+             (nil
+              "Update"
+              "Get the latest update. Check out the github commits for changes!"
+              (lambda (&rest _) (update-config))
+              'default)
+             )
+            ;; line 2
+            ((,nil
+              "Open scratch buffer"
+              "Switch to the scratch buffer"
+              (lambda (&rest _) (create-scratch-buffer))
+              'default)
+             (nil
+              "Open config.org"
+              "Open configuration file for easy editing"
+              (lambda (&rest _) (find-file "~/.emacs.d/config.org"))
+              'default)))))
 #+END_SRC
 ** =which-key=
 Command completeion
@@ -296,8 +300,8 @@ Command completeion
 Minibuffer for C-s search
 #+BEGIN_SRC emacs-lisp
   (use-package swiper
-	:ensure t
-	:bind ("C-s" . 'swiper))
+    :ensure t
+    :bind ("C-s" . 'swiper))
 #+END_SRC
 ** =evil=
 Vim keybindings
@@ -311,11 +315,11 @@ Vim keybindings
     :config
     (evil-mode 1))
 
-  ;(use-package evil-collection
-  ;  :after evil
-  ;  :ensure t
-  ;  :config
-  ;  (evil-collection-init))
+                                          ;(use-package evil-collection
+                                          ;  :after evil
+                                          ;  :ensure t
+                                          ;  :config
+                                          ;  (evil-collection-init))
 #+END_SRC
 ** =beacon=
 Highlights the cursor position when switching to a new window or buffer
@@ -330,24 +334,24 @@ Highlights the cursor position when switching to a new window or buffer
 C-x o window switching keys
 #+BEGIN_SRC emacs-lisp
   (use-package switch-window
-	:ensure t
-	:config
-	(setq switch-window-input-style 'minibuffer)
-	(setq switch-window-increase 4)
-	(setq switch-window-threshold 2)
-	(setq switch-window-shortcut-style 'qwerty)
-	(setq switch-window-qwerty-shortcuts
-		  '("a" "s" "d" "f" "j" "k" "l"))
-	:bind
-	([remap other-window] . switch-window))
+    :ensure t
+    :config
+    (setq switch-window-input-style 'minibuffer)
+    (setq switch-window-increase 4)
+    (setq switch-window-threshold 2)
+    (setq switch-window-shortcut-style 'qwerty)
+    (setq switch-window-qwerty-shortcuts
+          '("a" "s" "d" "f" "j" "k" "l"))
+    :bind
+    ([remap other-window] . switch-window))
 #+END_SRC
 ** =async=
 Utilize asynchronous processes whenever possible
 #+BEGIN_SRC emacs-lisp
   (use-package async
-	:ensure t
-	:init
-	(dired-async-mode 1))
+    :ensure t
+    :init
+    (dired-async-mode 1))
 #+END_SRC
 ** =page-break-lines=
 #+BEGIN_SRC emacs-lisp
@@ -405,7 +409,7 @@ Side-bar file and project explorer
             treemacs-tag-follow-delay              1.5
             treemacs-width                         30)
       (treemacs-resize-icons 11)
-	
+
       (treemacs-follow-mode t)
       (treemacs-filewatch-mode t)
       (treemacs-fringe-indicator-mode t)
@@ -426,12 +430,12 @@ Side-bar file and project explorer
 
   (use-package treemacs-evil
     :after treemacs evil
-      :ensure t)
+    :ensure t)
 
-    (use-package treemacs-icons-dired
-      :after treemacs dired
-      :ensure t
-      :config (treemacs-icons-dired-mode))
+  (use-package treemacs-icons-dired
+    :after treemacs dired
+    :ensure t
+    :config (treemacs-icons-dired-mode))
 #+END_SRC
 ** =ido= and =ido-vertical=
 Better buffer switching and killing
@@ -448,9 +452,9 @@ Better buffer switching and killing
     :ensure t
     :init
     (ido-vertical-mode 1))
-  ; This enables arrow keys to select while in ido mode. If you want to
-  ; instead use the default Emacs keybindings, change it to
-  ; "'C-n-and-C-p-only"
+                                          ; This enables arrow keys to select while in ido mode. If you want to
+                                          ; instead use the default Emacs keybindings, change it to
+                                          ; "'C-n-and-C-p-only"
   (setq ido-vertical-define-keys 'C-n-C-p-up-and-down)
 #+END_SRC
 ** =eldoc=
