@@ -11,15 +11,10 @@ My personal emacs config, based on [[https://github.com/snackon/Witchmacs][Witch
 #+BEGIN_SRC 
 git clone https://github.com/tsunagatteru/phantasm-emacs ~/.emacs.d
 #+END_SRC
-After running this command, the first time you run Emacs will download all of the specified packages in the config.org file, so please be patient!
-
-Also, to get autocompletion on C, C++ and Java files, you'll need to install the corresponding company backend servers first (you'll be automatically prompted to do so the first time you open a relevant file)
 * Dependencies
 =clang= as backend for C and C++ autocompletion
 
 =llvm= to install irony server
-
-(optional) =mvn= maven for java project handling through =meghanada=
 * Things-to-do
 Write thins to-do
 Make evil-org default for org files
@@ -566,19 +561,4 @@ Irony is the company backend for C and C++
     :hook
     ((c++-mode c-mode) . irony-mode)
     ('irony-mode-hook) . 'irony-cdb-autosetup-compile-options)
-#+END_SRC
-** Java
-*** Description
-Java autocomopletion and other stuff.
-*** Code
-#+BEGIN_SRC emacs-lisp
-  (use-package meghanada
-    :ensure t
-    :defer nil
-    :config
-    (add-hook 'java-mode-hook
-              (lambda ()
-                (meghanada-mode t)))
-    (setq meghanada-java-path "java")
-    (setq meghanada-maven-path "mvn"))
 #+END_SRC
