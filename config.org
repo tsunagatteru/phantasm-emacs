@@ -214,6 +214,20 @@ Everything org mode related
     (org-babel-load-file (expand-file-name "~/.emacs.d/config.org")))
   (global-set-key (kbd "C-c r") 'config-reload)
 #+END_SRC
+* vterm
+A fully-fledged terminal inside Emacs.
+#+begin_src emacs-lisp
+  (use-package vterm
+    :defer t
+    :ensure t
+    :config
+    (setq vterm-shell "/usr/bin/zsh"))
+
+  (use-package multi-vterm
+    :after vterm
+    :defer t
+    :ensure t)
+#+end_src
 * Use-package section
 ** =auto-package-update=
 Automatically updates and removes old packages
