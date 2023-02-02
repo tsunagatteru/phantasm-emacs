@@ -16,7 +16,7 @@ git clone https://github.com/tsunagatteru/phantasm-emacs ~/.emacs.d
 
 =llvm= to install irony server
 
-==MIT/GNU Scheme== for geiser to work
+=MIT/GNU Scheme= for geiser to work
 * QoL section
 Minor quality-of-life modifications for a more pleasant Emacs experience
 ** Enable line numbers
