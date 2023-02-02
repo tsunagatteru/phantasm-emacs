@@ -219,6 +219,7 @@ A fully-fledged terminal inside Emacs.
   (use-package vterm
     :defer t
     :config
+    (setq vterm-always-compile-module t)
     (setq vterm-shell "/usr/bin/zsh"))
 
   (use-package multi-vterm
