@@ -133,20 +133,18 @@ Everything org mode related
              "CANCELLED(c)" )))
 
     (use-package org-indent
+        :ensure nil
         :diminish org-indent-mode)
 
     (use-package htmlize)
 
     (use-package evil-org
-        :after (evil org)
-        :config
-        (add-hook 'org-mode-hook 'evil-org-mode)
-        (add-hook 'evil-org-mode-hook
-                  (lambda ()
-                    (evil-org-set-key-theme '(navigation insert textobjects additional calendar))))
-
-    (require 'evil-org-agenda)
-      (evil-org-agenda-set-keys))
+       :ensure t
+       :after org
+       :config
+       (require 'evil-org-agenda)
+       (evil-org-agenda-set-keys))
+    (add-hook `org-mode-hook `evil-org-mode)
 #+END_SRC
 * Eshell
 ** Prompt
@@ -475,7 +473,8 @@ Better buffer switching and killing
 ** =abbrev=
 #+BEGIN_SRC emacs-lisp
   (use-package abbrev
-    :diminish abbrev-mode)
+    :ensure nil
+	:diminish abbrev-mode)
 #+END_SRC
 * Programming section
 ** =company=
