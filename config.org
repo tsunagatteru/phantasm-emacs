@@ -554,3 +554,9 @@ Irony is the company backend for C and C++
   (use-package geiser-mit
     :ensure t)
 #+END_SRC
+
+** Other
+#+BEGIN_SRC scheme
+  (use-package yaml-mode
+    :ensure t)
+#+END_SRC
