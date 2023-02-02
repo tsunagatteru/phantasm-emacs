@@ -28,6 +28,10 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
+;; Global package-ensure behavior
+(require 'use-package-ensure)
+  (setq use-package-always-ensure t)
+
 ;; Load Witchmacs theme
 (load-theme 'Witchmacs t)
 
