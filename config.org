@@ -476,66 +476,261 @@ Better buffer switching and killing
     :ensure nil
 	:diminish abbrev-mode)
 #+END_SRC
-* Programming section
-** =company=
-Company is the autocompletion frontend that takes all the backends and gives you possible autocompletions when writing programs
-#+BEGIN_SRC emacs-lisp
-  (use-package company
-    :diminish (meghanada-mode company-mode irony-mode)
+* Programming                                                           :TOC:
+** =projectile=
+Project management.
+#+begin_src emacs-lisp
+  (use-package projectile
     :config
-    (setq company-idle-delay 0)
-    (setq company-minimum-prefix-length 3)
-    (define-key company-active-map (kbd "M-n") nil)
-    (define-key company-active-map (kbd "M-p") nil)
-    (define-key company-active-map (kbd "C-n") #'company-select-next)
-    (define-key company-active-map (kbd "C-p") #'company-select-previous)
-    (define-key company-active-map (kbd "SPC") #'company-abort)
-    :hook
-    ((java-mode c-mode c++-mode) . company-mode))
-#+END_SRC
+    (projectile-mode t)
+    (define-key projectile-mode-map (kbd "C-x p") 'projectile-command-map)
+    ;(setq projectile-track-known-projects-automatically nil)
+    (setq projectile-enable-caching t)
+    (setq projectile-require-project-root t)
+    (setq projectile-dynamic-mode-line nil))
+#+end_src
+
 ** =yasnippet=
-Yasnippet provides useful snippets, nothing to do with Company but still useful when used in conjuction with it
-#+BEGIN_SRC emacs-lisp
+Useful snippets.
+#+begin_src emacs-lisp
   (use-package yasnippet
-    :diminish yas-minor-mode
-    :hook
-    ((c-mode c++-mode) . yas-minor-mode)
     :config
-    (yas-reload-all))
+      ;;(use-package yasnippet-snippets)
+      ;;(use-package auto-yasnippet)
+    (yas-reload-all)
+    (yas-global-mode))
 
-  (use-package yasnippet-snippets
-    :ensure t)
-#+END_SRC
-** =magit=
-#+BEGIN_SRC emacs-lisp
-  (use-package magit)
-#+END_SRC
+  ;; Collection of snippets from Doom Emacs.
+  (use-package doom-snippets
+    :after yasnippet
+    :straight (doom-snippets :type git :host github :repo "hlissner/doom-snippets" :files ("*.el" "*")))
+  
+  (global-set-key (kbd "C-c y") 'yas-insert-snippet)
+#+end_src
+
+** =flycheck=
+Syntax checking.
+#+begin_src emacs-lisp
+  (use-package flycheck
+    :hook (after-init . global-flycheck-mode)
+    :custom
+    (flycheck-check-syntax-automatically '(save mode-enabled)))
+#+end_src
+
+** =eldoc=
+Display documentation (e.g. arguments of a function).
+#+begin_src emacs-lisp
+  (use-package eldoc
+    :hook (after-init . global-eldoc-mode))
+#+end_src
+
+** =LSP=
+Language server. Will provide us with IDE-like features.
+#+begin_src emacs-lisp
+  (use-package lsp-mode
+    :commands lsp
+    :custom
+    (lsp-auto-guess-root t)
+    (lsp-log-io t)
+    (read-process-output-max (* 1024 1024)) 
+    (lsp-idle-delay 0.5)
+    (lsp-prefer-flymake nil))
+
+  ;; Enhance UI
+  (use-package lsp-ui
+    :after (lsp-mode)
+    :hook (lsp-mode . lsp-ui-mode)
+    :custom
+    (lsp-ui-doc-enable nil)
+    (lsp-ui-doc-header t)
+    ;(lsp-ui-doc-delay 2.0)
+    (lsp-ui-doc-include-signature t)
+    (lsp-ui-flycheck-enable t)
+    (lsp-ui-peek-always-show t)
+    (lsp-ui-sideline-show-code-actions t)
+    (lsp-ui-sideline-delay 0.05))
+
+  ;(use-package dap-mode
+  ;  :after lsp-mode
+  ;  :config
+  ;  (dap-mode t)
+  ;  (dap-ui-mode t))
+
+  (use-package lsp-treemacs
+    :after (lsp-mode)
+    :commands lsp-treemacs
+    :config
+    (lsp-treemacs-sync-mode 1))
+
+  (setq lsp-lens-enable nil)
+  ;(setq lsp-enable-file-watchers nil)
+#+end_src
+
+** =company=
+Provides completion.
+#+begin_src emacs-lisp
+   (use-package company
+     :after lsp-mode
+     :bind
+     (:map company-active-map
+           ("C-n". company-select-next)
+           ("C-p". company-select-previous)
+           ("M-<". company-select-first)
+           ("M->". company-select-last)
+           ("<tab>" . company-complete-selection))
+   (:map lsp-mode-map
+           ("<tab>" . company-indent-or-complete-common))
+     :config
+     (setq company-dabbrev-other-buffers t
+           company-dabbrev-code-other-buffers t)
+     :custom
+     (company-minimum-prefix-length 1)
+     (company-idle-delay 0.3)
+     :hook ((text-mode . company-mode)
+            (prog-mode . company-mode)
+            (org-mode . company-mode)
+            (company-mode . yas-minor-mode)
+            (lsp-mode . company-mode)))
+
+   (use-package company-box
+     :hook (company-mode . company-box-mode))
+
+   (use-package company-prescient
+     :after (selectrum company)
+     :config
+     (company-prescient-mode 1)
+     (prescient-persist-mode))
+
+  (add-hook 'after-init-hook 'global-company-mode)
+#+end_src
+
 ** C & C++
-Irony is the company backend for C and C++
-#+BEGIN_SRC emacs-lisp
-  (use-package company-c-headers
-    :defer nil)
-
-  (use-package company-irony
-    :defer nil
+#+begin_src emacs-lisp
+  (use-package ccls
     :config
-    (setq company-backends '((company-c-headers
-                              company-dabbrev-code
-                              company-irony))))
-  (use-package irony
-    :defer nil
-    :config
-    :hook
-    ((c++-mode c-mode) . irony-mode)
-    ('irony-mode-hook) . 'irony-cdb-autosetup-compile-options)
-#+END_SRC
+    (setq ccls-executable "ccls")
+    (setq lsp-prefer-flymake nil)
+    (setq-default flycheck-disabled-checkers '(c/c++-clang c/c++-cppcheck c/c++-gcc))
+    (setq ccls-sem-highlight-method 'overlay)
+    :hook ((c-mode c++-mode) .
+           (lambda () (require 'ccls) (lsp) (yas-minor-mode))))
 
-** Scheme
-#+BEGIN_SRC emacs-lisp
-  (use-package geiser-mit)
-#+END_SRC
+  (setq-default c-basic-offset 4)
+#+end_src
+
+** CMake
+Oof.
+#+begin_src emacs-lisp
+  (use-package cmake-mode)
+#+end_src
+
+** Python
+#+begin_src emacs-lisp
+  (use-package lsp-pyright
+  :hook (python-mode . (lambda () (require 'lsp-pyright) (lsp)))
+  :init (when (executable-find "python3")
+          (setq lsp-pyright-python-executable-cmd "python3")))
+#+end_src
+
+** Lisp
+#+begin_src emacs-lisp
+  (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
+  (add-hook 'emacs-lisp-mode-hook 'yas-minor-mode)
+
+  (use-package slime
+    :config
+    (setq inferior-lisp-program "/usr/bin/sbcl") ;; install SBCL from your repos
+    (setq slime-contribs '(slime-fancy)))
+
+  ;; Better help buffer
+  (use-package helpful
+    :custom
+    (counsel-describe-function-function #'helpful-callable)
+    (counsel-describe-variable-function #'helpful-variable)
+    :bind
+    ([remap describe-function] . counsel-describe-function)
+    ([remap describe-command] . helpful-command)
+    ([remap describe-variable] . counsel-describe-variable)
+    ([remap describe-key] . helpful-key))
+#+end_src
+
+** Go
+#+begin_src emacs-lisp
+  (use-package go-mode
+    :hook (go-mode . lsp-deferred))
+
+  ;; Set up before-save hooks to format buffer and add/delete imports.
+  ;; Make sure you don't have other gofmt/goimports hooks enabled.
+  (defun lsp-go-install-save-hooks ()
+    (add-hook 'before-save-hook #'lsp-format-buffer t t)
+    (add-hook 'before-save-hook #'lsp-organize-imports t t))
+  (add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
+#+end_src
+
+** JSON
+#+begin_src emacs-lisp
+  (use-package json-mode
+    :mode (("\\.json\\'" . json-mode)))
+#+end_src
 
 ** Yaml
-#+BEGIN_SRC scheme
-  (use-package yaml-mode)
-#+END_SRC
+#+begin_src emacs-lisp
+  (use-package yaml-mode
+    :commands yaml-mode)
+#+end_src
+
+** Markdown
+#+begin_src emacs-lisp
+  (use-package markdown-mode
+    :mode (("README\\.md\\'" . gfm-mode)
+           ("\\.md\\'" . markdown-mode)
+           ("\\.markdown\\'" . markdown-mode))
+    :init (setq markdown-command "multimarkdown"))
+#+end_src
+
+** LaTeX
+#+begin_src emacs-lisp
+  (use-package auctex
+    :hook
+    (TeX-mode . TeX-PDF-mode)
+    (TeX-mode . company-mode)
+    (LaTeX-mode . (lambda ()
+                    (push (list 'output-pdf "Zathura")
+                              TeX-view-program-selection)))
+    :init
+    (setq reftex-plug-into-AUCTeX t)
+    (setq TeX-parse-self t)
+    (setq-default TeX-master nil)
+    (setq TeX-open-quote  "<<")
+    (setq TeX-close-quote ">>")
+    (setq TeX-electric-sub-and-superscript t)
+    (setq font-latex-fontify-script nil)
+    (setq TeX-show-compilation nil)
+    (setq reftex-label-alist '(AMSTeX)))
+
+  (use-package company-auctex
+    :init
+    (company-auctex-init))
+
+  (use-package company-reftex
+    :init
+    (add-to-list 'company-backends 'company-reftex-citations)
+    (add-to-list 'company-backends 'company-reftex-labels))
+#+end_src
+
+** Git integration
+#+begin_src emacs-lisp
+  (use-package magit
+    :config
+    (setq magit-push-always-verify nil)
+    (setq git-commit-summary-max-length 50)
+    :bind
+    ("M-g" . magit-status))
+
+  (use-package treemacs-magit
+    :after treemacs magit)
+  
+  (use-package ghub
+    :demand t
+    :after magit)
+#+end_src
