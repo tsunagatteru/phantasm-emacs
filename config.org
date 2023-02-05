@@ -476,7 +476,7 @@ Better buffer switching and killing
     :ensure nil
 	:diminish abbrev-mode)
 #+END_SRC
-* Programming                                                           :TOC:
+* Programming
 ** =projectile=
 Project management.
 #+begin_src emacs-lisp
@@ -604,6 +604,10 @@ Provides completion.
   (add-hook 'after-init-hook 'global-company-mode)
 #+end_src
 
+** Sqlite
+#+begin_src emacs-lisp
+  (use-package sqlite3)
+#+end_src
 ** C & C++
 #+begin_src emacs-lisp
   (use-package ccls
