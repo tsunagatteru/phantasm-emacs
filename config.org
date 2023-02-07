@@ -244,7 +244,7 @@ Spaceline, to use it`s theme
 #+BEGIN_SRC emacs-lisp
   (use-package spaceline)
 #+END_SRC
-** =powerline= 
+** =powerline=
 Thing at the bottom that shows current mode and other stuff
 #+BEGIN_SRC emacs-lisp
   (use-package powerline
