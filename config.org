@@ -110,7 +110,6 @@ Minor quality-of-life modifications for a more pleasant Emacs experience
 #+END_SRC
 ** Fill spaces
 #+BEGIN_SRC emacs-lisp
-                                          ; (setq window-resize-pixelwise t)
   (setq frame-resize-pixelwise t)
 #+END_SRC
 * =Org= mode
@@ -604,6 +603,10 @@ Provides completion.
   (add-hook 'after-init-hook 'global-company-mode)
 #+end_src
 
+** Web
+#+begin_src emacs-lisp
+  (use-package web-mode)
+#+end_src
 ** Sqlite
 #+begin_src emacs-lisp
   (use-package sqlite3)
