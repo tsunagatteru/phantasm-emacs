@@ -605,7 +605,8 @@ Provides completion.
 
 ** Web
 #+begin_src emacs-lisp
-  (use-package web-mode)
+  (use-package web-mode
+    :mode (("\\.tmpl\\'" . gfm-mode)))
 #+end_src
 ** Sqlite
 #+begin_src emacs-lisp
