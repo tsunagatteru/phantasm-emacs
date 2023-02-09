@@ -221,7 +221,8 @@ A fully-fledged terminal inside Emacs.
 
   (use-package multi-vterm
     :after vterm
-    :defer t)
+    :defer t
+    :straight (:build t))
 #+end_src
 * Use-package section
 ** =auto-package-update=
