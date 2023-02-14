@@ -500,11 +500,6 @@ Useful snippets.
     (yas-reload-all)
     (yas-global-mode))
 
-  ;; Collection of snippets from Doom Emacs.
-  (use-package doom-snippets
-    :after yasnippet
-    :straight (doom-snippets :type git :host github :repo "hlissner/doom-snippets" :files ("*.el" "*")))
-  
   (global-set-key (kbd "C-c y") 'yas-insert-snippet)
 #+end_src
 
