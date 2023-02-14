@@ -114,98 +114,37 @@ Minor quality-of-life modifications for a more pleasant Emacs experience
 #+END_SRC
 * =Org= mode
 Everything org mode related
-#+begin_src emacs-lisp
-  ;; Source block expansion
-  (require 'org-tempo)
-  (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-#+end_src
-
-| Typing the below + TAB | Expands to ...                        |
-|------------------------+---------------------------------------|
-| <a                     | '#+BEGIN_EXPORT ascii' … '#+END_EXPORT  |
-| <c                     | '#+BEGIN_CENTER' … '#+END_CENTER'       |
-| <C                     | '#+BEGIN_COMMENT' … '#+END_COMMENT'     |
-| <e                     | '#+BEGIN_EXAMPLE' … '#+END_EXAMPLE'     |
-| <E                     | '#+BEGIN_EXPORT' … '#+END_EXPORT'       |
-| <h                     | '#+BEGIN_EXPORT html' … '#+END_EXPORT'  |
-| <l                     | '#+BEGIN_EXPORT latex' … '#+END_EXPORT' |
-| <q                     | '#+BEGIN_QUOTE' … '#+END_QUOTE'         |
-| <s                     | '#+BEGIN_SRC' … '#+END_SRC'             |
-| <v                     | '#+BEGIN_VERSE' … '#+END_VERSE'         |
-| <el                    | '#+BEGIN_SRC emacs-lisp' …  '#+END_SRC' |
-
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (use-package org
-      :config
-      ;(setq org-startup-with-inline-images t)
-      (add-hook 'org-mode-hook 'org-indent-mode)
-      (add-hook 'org-mode-hook 'prettify-symbols-mode)
-      ;(add-hook 'org-mode-hook 'org-toggle-pretty-entities)
-      (add-hook 'org-mode-hook
-                '(lambda ()
-                   (visual-line-mode 1))))
-
-  (setq org-hide-leading-stars t)
-  (setq org-hide-emphasis-markers t)
-
-
-  ;; Don't split src window.
-  (setq org-src-window-setup 'current-window)
-
-  (use-package org-indent
-      :straight nil)
+        :config
+        (add-hook 'org-mode-hook 'org-indent-mode)
+        (add-hook 'org-mode-hook
+                  #'(lambda ()
+                     (visual-line-mode 1))))
 
   (setq org-todo-keywords
           '((sequence
              "TODO(t)"
              "WAIT(w)"
-             "|"                 ; Separates "active" and "inactive" states.
+             "PROCES(p)"
+             "|"
              "DONE(d)"
              "CANCELLED(c)" )))
 
-  (use-package htmlize)
+    (use-package org-indent
+        :ensure nil
+        :diminish org-indent-mode)
 
-  ;; Better org-bullets
-  (use-package org-superstar
-    :hook (org-mode . org-superstar-mode))
+    (use-package htmlize)
 
-  ;; Automatically create a table of contents.
-  (use-package toc-org
-    :after (org-mode markdown-mode)
-    :hook
-    (org-mode-hook . toc-org-mode)
-    (markdown-mode-hook . toc-org-mode))
-
-  ;; Evil bindings for Org mode.
-  (use-package evil-org
-    :after (evil org)
-    :config
-    (add-hook 'org-mode-hook 'evil-org-mode)
-    (add-hook 'evil-org-mode-hook
-              (lambda ()
-                (evil-org-set-key-theme '(navigation insert textobjects additional calendar))))
-    (require 'evil-org-agenda)
-    (evil-org-agenda-set-keys))
-
-  ;; Make invisible parts of Org elements appear visible.
-  (use-package org-appear
-    :config
-    (add-hook 'org-mode-hook 'org-appear-mode))
-
-  ;; Automatically toggle Org mode LaTeX fragment previews as the cursor enters and exits them.
-  (use-package org-fragtog
-    :config
-    (add-hook 'org-mode-hook 'org-fragtog-mode))
-
-  (use-package org-modern
-    :ensure nil
-    :hook (org-mode . org-modern-mode)
-    :custom
-    (org-modern-star nil)
-    (org-modern-hide-stars nil)
-    (org-modern-variable-pitch nil)
-    (org-modern-label-border 0.1))
-#+end_srcV
+    (use-package evil-org
+       :ensure t
+       :after org
+       :config
+       (require 'evil-org-agenda)
+       (evil-org-agenda-set-keys))
+    (add-hook `org-mode-hook `evil-org-mode)
+#+END_SRC
 * Eshell
 ** Prompt
 #+BEGIN_SRC emacs-lisp
@@ -530,6 +469,12 @@ Better buffer switching and killing
 #+BEGIN_SRC emacs-lisp
   (use-package eldoc
     :diminish eldoc-mode)
+#+END_SRC
+** =abbrev=
+#+BEGIN_SRC emacs-lisp
+  (use-package abbrev
+    :ensure nil
+	:diminish abbrev-mode)
 #+END_SRC
 * Programming
 ** =projectile=
