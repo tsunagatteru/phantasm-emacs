@@ -620,13 +620,10 @@ Provides completion.
 
   (setq-default c-basic-offset 4)
 #+end_src
-
 ** CMake
-Oof.
 #+begin_src emacs-lisp
   (use-package cmake-mode)
 #+end_src
-
 ** Python
 #+begin_src emacs-lisp
   (use-package lsp-pyright
@@ -634,7 +631,6 @@ Oof.
   :init (when (executable-find "python3")
           (setq lsp-pyright-python-executable-cmd "python3")))
 #+end_src
-
 ** Lisp
 #+begin_src emacs-lisp
   (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
@@ -656,7 +652,6 @@ Oof.
     ([remap describe-variable] . counsel-describe-variable)
     ([remap describe-key] . helpful-key))
 #+end_src
-
 ** Go
 #+begin_src emacs-lisp
   (use-package go-mode
@@ -669,19 +664,16 @@ Oof.
     (add-hook 'before-save-hook #'lsp-organize-imports t t))
   (add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
 #+end_src
-
 ** JSON
 #+begin_src emacs-lisp
   (use-package json-mode
     :mode (("\\.json\\'" . json-mode)))
 #+end_src
-
 ** Yaml
 #+begin_src emacs-lisp
   (use-package yaml-mode
     :commands yaml-mode)
 #+end_src
-
 ** Markdown
 #+begin_src emacs-lisp
   (use-package markdown-mode
@@ -690,7 +682,6 @@ Oof.
            ("\\.markdown\\'" . markdown-mode))
     :init (setq markdown-command "multimarkdown"))
 #+end_src
-
 ** LaTeX
 #+begin_src emacs-lisp
   (use-package auctex
@@ -720,7 +711,6 @@ Oof.
     (add-to-list 'company-backends 'company-reftex-citations)
     (add-to-list 'company-backends 'company-reftex-labels))
 #+end_src
-
 ** Git integration
 #+begin_src emacs-lisp
   (use-package magit
@@ -736,4 +726,9 @@ Oof.
   (use-package ghub
     :demand t
     :after magit)
+#+end_src
+
+** Terraform
+#+begin_src emacs-lisp
+  (use-package terraform-mode)
 #+end_src
