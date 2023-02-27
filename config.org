@@ -561,6 +561,7 @@ Language server. Will provide us with IDE-like features.
 #+end_src
 
 ** =company=
+
 Provides completion.
 #+begin_src emacs-lisp
    (use-package company
@@ -641,7 +642,6 @@ Provides completion.
     (setq inferior-lisp-program "/usr/bin/sbcl") ;; install SBCL from your repos
     (setq slime-contribs '(slime-fancy)))
 
-  ;; Better help buffer
   (use-package helpful
     :custom
     (counsel-describe-function-function #'helpful-callable)
@@ -651,6 +651,8 @@ Provides completion.
     ([remap describe-command] . helpful-command)
     ([remap describe-variable] . counsel-describe-variable)
     ([remap describe-key] . helpful-key))
+  
+  (use-package geiser-mit)
 #+end_src
 ** Go
 #+begin_src emacs-lisp
