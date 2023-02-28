@@ -13,12 +13,10 @@ git clone https://github.com/tsunagatteru/phantasm-emacs ~/.emacs.d
 #+END_SRC
 * Dependencies
 =clang= as backend for C and C++ autocompletion
-
 =llvm= to install irony server
-
 =mit-scheme= for geiser to work
-
 =libvterm= for vterm
+=pyright= python lsp
 * QoL section
 Minor quality-of-life modifications for a more pleasant Emacs experience
 ** Enable line numbers
