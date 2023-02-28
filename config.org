@@ -1,23 +1,87 @@
 #+STARTUP: overview
 #+TITLE: phantasm-emacs
 #+LANGUAGE: en
-#+OPTIONS: num:nil
 ~/.emacs.d/
 
 [[./yukari.png]]
-* Introduction
+* Table of Contents                                                     :TOC:
+- [[#introduction][Introduction]]
+- [[#quick-install][Quick install]]
+- [[#dependencies][Dependencies]]
+- [[#qol-section][QoL section]]
+  - [[#enable-line-numbers][Enable line numbers]]
+  - [[#show-parent-parentheses][Show parent parentheses]]
+  - [[#disable-the-default-startup-screen][Disable the default startup screen]]
+  - [[#disable-most-gui-elements][Disable most gui elements]]
+  - [[#enable-copypasting-outside-of-emacs][Enable copypasting outside of Emacs]]
+  - [[#disable-automatic-creation-of-backup-files][Disable automatic creation of backup files]]
+  - [[#enable-conservative-scrolling][Enable conservative scrolling]]
+  - [[#disable-ring-bell][Disable ring-bell]]
+  - [[#indentation][Indentation]]
+  - [[#enable-prettify-symbols-mode][Enable prettify symbols mode]]
+  - [[#enable-bracket-pair-matching][Enable bracket pair-matching]]
+  - [[#creating-a-new-window-switches-your-cursor-to-it][Creating a new window switches your cursor to it]]
+  - [[#transform-yes-or-no-questions-into-y-or-n][Transform yes-or-no questions into y-or-n]]
+  - [[#highlight-current-line][Highlight current line]]
+  - [[#defer-loading-most-packages-for-quicker-startup-times][Defer loading most packages for quicker startup times]]
+  - [[#fill-spaces][Fill spaces]]
+- [[#org-mode][=Org= mode]]
+- [[#eshell][Eshell]]
+  - [[#prompt][Prompt]]
+  - [[#aliases][Aliases]]
+  - [[#custom-functions][Custom functions]]
+- [[#vterm][vterm]]
+- [[#use-package-section][Use-package section]]
+  - [[#auto-package-update][=auto-package-update=]]
+  - [[#diminish][=diminish=]]
+  - [[#spaceline][=spaceline=]]
+  - [[#powerline][=powerline=]]
+  - [[#dashboard][=dashboard=]]
+  - [[#which-key][=which-key=]]
+  - [[#swiper][=swiper=]]
+  - [[#evil][=evil=]]
+  - [[#beacon][=beacon=]]
+  - [[#switch-window][=switch-window=]]
+  - [[#async][=async=]]
+  - [[#page-break-lines][=page-break-lines=]]
+  - [[#undo-tree][=undo-tree=]]
+  - [[#treemacs][=treemacs=]]
+  - [[#ido-and-ido-vertical][=ido= and =ido-vertical=]]
+  - [[#eldoc][=eldoc=]]
+  - [[#abbrev][=abbrev=]]
+- [[#programming][Programming]]
+  - [[#projectile][=projectile=]]
+  - [[#yasnippet][=yasnippet=]]
+  - [[#flycheck][=flycheck=]]
+  - [[#eldoc-1][=eldoc=]]
+  - [[#lsp][=LSP=]]
+  - [[#company][=company=]]
+  - [[#sqlite][Sqlite]]
+  - [[#c--c][C & C++]]
+  - [[#cmake][CMake]]
+  - [[#python][Python]]
+  - [[#lisp][Lisp]]
+  - [[#go][Go]]
+  - [[#json][JSON]]
+  - [[#yaml][Yaml]]
+  - [[#markdown][Markdown]]
+  - [[#latex][LaTeX]]
+  - [[#git-integration][Git integration]]
+  - [[#terraform][Terraform]]
+
+* Introduction                                                          :TOC:
 My personal emacs config, based on [[https://github.com/snackon/Witchmacs][Witchmacs]] and [[https://github.com/pprobst/yukimacs][Yukimacs]].
-* Quick install
+* Quick install                                                         :TOC:
 #+BEGIN_SRC 
 git clone https://github.com/tsunagatteru/phantasm-emacs ~/.emacs.d
 #+END_SRC
-* Dependencies
+* Dependencies                                                          :TOC:
 =clang= as backend for C and C++ autocompletion
 =llvm= to install irony server
 =mit-scheme= for geiser to work
 =libvterm= for vterm
 =pyright= python lsp
-* QoL section
+* QoL section                                                           :TOC:
 Minor quality-of-life modifications for a more pleasant Emacs experience
 ** Enable line numbers
 #+BEGIN_SRC emacs-lisp
@@ -110,7 +174,7 @@ Minor quality-of-life modifications for a more pleasant Emacs experience
 #+BEGIN_SRC emacs-lisp
   (setq frame-resize-pixelwise t)
 #+END_SRC
-* =Org= mode
+* =Org= mode                                                            :TOC:
 Everything org mode related
 #+BEGIN_SRC emacs-lisp
   (use-package org
@@ -129,6 +193,12 @@ Everything org mode related
              "DONE(d)"
              "CANCELLED(c)" )))
 
+  (use-package toc-org
+    :after (org-mode markdown-mode)
+    :hook
+    (org-mode-hook . toc-org-mode)
+    (markdown-mode-hook . toc-org-mode))
+
     (use-package org-indent
         :ensure nil
         :diminish org-indent-mode)
@@ -143,7 +213,7 @@ Everything org mode related
        (evil-org-agenda-set-keys))
     (add-hook `org-mode-hook `evil-org-mode)
 #+END_SRC
-* Eshell
+* Eshell                                                                :TOC:
 ** Prompt
 #+BEGIN_SRC emacs-lisp
   (setq eshell-prompt-regexp "^[^αλ\n]*[αλ] ")
@@ -208,7 +278,7 @@ Everything org mode related
     (org-babel-load-file (expand-file-name "~/.emacs.d/config.org")))
   (global-set-key (kbd "C-c r") 'config-reload)
 #+END_SRC
-* vterm
+* vterm                                                                 :TOC:
 A fully-fledged terminal inside Emacs.
 #+begin_src emacs-lisp
   (use-package vterm
@@ -221,7 +291,7 @@ A fully-fledged terminal inside Emacs.
     :after vterm
     :defer t)
 #+end_src
-* Use-package section
+* Use-package section                                                   :TOC:
 ** =auto-package-update=
 Automatically updates and removes old packages
 #+BEGIN_SRC emacs-lisp
@@ -473,7 +543,7 @@ Better buffer switching and killing
     :ensure nil
 	:diminish abbrev-mode)
 #+END_SRC
-* Programming
+* Programming                                                           :TOC:
 ** =projectile=
 Project management.
 #+begin_src emacs-lisp

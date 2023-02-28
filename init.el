@@ -50,5 +50,5 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(geiser-mit terraform-mode ghub treemacs-magit magit company-reftex company-auctex auctex yaml-mode json-mode go-mode helpful slime lsp-pyright cmake-mode ccls sqlite3 company-prescient company-box company lsp-treemacs lsp-ui lsp-mode flycheck yasnippet projectile ido-vertical-mode treemacs-icons-dired treemacs-evil treemacs undo-tree page-break-lines async switch-window beacon swiper which-key dashboard spaceline diminish auto-package-update vterm evil-org htmlize use-package))
+   '(toc-org geiser-mit terraform-mode ghub treemacs-magit magit company-reftex company-auctex auctex yaml-mode json-mode go-mode helpful slime lsp-pyright cmake-mode ccls sqlite3 company-prescient company-box company lsp-treemacs lsp-ui lsp-mode flycheck yasnippet projectile ido-vertical-mode treemacs-icons-dired treemacs-evil treemacs undo-tree page-break-lines async switch-window beacon swiper which-key dashboard spaceline diminish auto-package-update vterm evil-org htmlize use-package))
  '(warning-suppress-types '((comp))))
