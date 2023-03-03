@@ -563,6 +563,18 @@ Better buffer switching and killing
     :ensure nil
 	:diminish abbrev-mode)
 #+END_SRC
+** =ranger=
+File manager
+#+begin_src emacs-lisp
+  (use-package ranger
+    :init
+    (ranger-override-dired-mode t)
+    (setq ranger-cleanup-on-disable t)
+    (setq ranger-show-hidden t)
+    (setq ranger-preview-file t)
+    (setq ranger-show-literal nil)
+    (setq ranger-dont-show-binary t))
+#+end_src
 * Programming                                                           :TOC:
 ** =projectile=
 Project management.
