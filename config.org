@@ -829,3 +829,8 @@ Provides completion.
 #+begin_src emacs-lisp
   (use-package terraform-mode)
 #+end_src
+
+** Web-mode
+#+begin_src emacs-lisp
+  (use-package web-mode)
+#+end_src
