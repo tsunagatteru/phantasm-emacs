@@ -834,3 +834,7 @@ Provides completion.
 #+begin_src emacs-lisp
   (use-package web-mode)
 #+end_src
+** Docker
+#+begin_src emacs-lisp
+  (use-package dockerfile-mode)
+#+end_src
