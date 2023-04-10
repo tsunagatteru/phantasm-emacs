@@ -76,11 +76,11 @@ My personal emacs config, based on [[https://github.com/snackon/Witchmacs][Witch
 git clone https://github.com/tsunagatteru/phantasm-emacs ~/.emacs.d
 #+END_SRC
 * Dependencies                                                          :TOC:
-=clang= as backend for C and C++ autocompletion
-=llvm= to install irony server
-=mit-scheme= for geiser to work
-=libvterm= for vterm
-=pyright= python lsp
+- =clang= as backend for C and C++ autocompletion
+- =llvm= to install irony server
+- =mit-scheme= for geiser to work
+- =libvterm= for vterm
+- =pyright= python lsp
 * QoL section                                                           :TOC:
 Minor quality-of-life modifications for a more pleasant Emacs experience
 ** Enable line numbers
