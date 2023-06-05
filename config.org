@@ -576,7 +576,7 @@ File manager
     (setq ranger-dont-show-binary t))
 #+end_src
 * Programming                                                           :TOC:
-** =projectile=
+** [#B] =projectile=
 Project management.
 #+begin_src emacs-lisp
   (use-package projectile
@@ -842,4 +842,9 @@ Provides completion.
 ** Systemd
 #+begin_src emacs-lisp
   (use-package systemd)
+#+end_src
+
+** Powershell
+#+begin_src emacs-lisp
+  (use-package powershell)
 #+end_src
