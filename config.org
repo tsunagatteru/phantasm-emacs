@@ -576,7 +576,7 @@ File manager
     (setq ranger-dont-show-binary t))
 #+end_src
 * Programming                                                           :TOC:
-** [#B] =projectile=
+** =projectile=
 Project management.
 #+begin_src emacs-lisp
   (use-package projectile
