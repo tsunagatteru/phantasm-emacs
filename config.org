@@ -726,6 +726,7 @@ Provides completion.
   :hook (python-mode . (lambda () (require 'lsp-pyright) (lsp)))
   :init (when (executable-find "python3")
           (setq lsp-pyright-python-executable-cmd "python3")))
+  (use-package pyvenv)
 #+end_src
 ** Lisp
 #+begin_src emacs-lisp
