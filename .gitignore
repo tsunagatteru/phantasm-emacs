@@ -5,6 +5,8 @@ auto-save-list
 config.el
 eln-cache
 elpa
+eshell
+snippets
 ido.last
 recentf
 transient
