@@ -767,11 +767,6 @@ Provides completion.
   (use-package json-mode
     :mode (("\\.json\\'" . json-mode)))
 #+end_src
-** Yaml
-#+begin_src emacs-lisp
-  (use-package yaml-mode
-    :commands yaml-mode)
-#+end_src
 ** Markdown
 #+begin_src emacs-lisp
   (use-package markdown-mode
@@ -826,26 +821,42 @@ Provides completion.
     :after magit)
 #+end_src
 
-** Terraform
-#+begin_src emacs-lisp
-  (use-package terraform-mode)
-#+end_src
-
 ** Web-mode
 #+begin_src emacs-lisp
   (use-package web-mode)
+#+end_src
+** Python-venv
+#+begin_src emacs-lisp
+  (use-package pyvenv)
+#+end_src
+
+* Devops
+** Yaml
+#+begin_src emacs-lisp
+  (use-package yaml-mode
+    :commands yaml-mode)
+#+end_src
+** Terraform
+#+begin_src emacs-lisp
+  (use-package terraform-mode)
 #+end_src
 ** Docker
 #+begin_src emacs-lisp
   (use-package dockerfile-mode)
 #+end_src
-
 ** Systemd
 #+begin_src emacs-lisp
   (use-package systemd)
 #+end_src
-
 ** Powershell
 #+begin_src emacs-lisp
   (use-package powershell)
+#+end_src
+** Nginx
+#+begin_src emacs-lisp
+  (use-package nginx-mode)
+#+end_src
+** Jenkins
+#+begin_src emacs-lisp
+  (use-package jenkins-mode)
 #+end_src
