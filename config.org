@@ -858,5 +858,5 @@ Provides completion.
 #+end_src
 ** Jenkins
 #+begin_src emacs-lisp
-  (use-package jenkins-mode)
+  (use-package jenkinsfile-mode)
 #+end_src
