@@ -366,6 +366,7 @@ The frontend of Emacs
       (lisp-interaction-mode))
     :config
     (dashboard-setup-startup-hook)
+    (setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
     (setq dashboard-items '((recents . 5)))
     (setq dashboard-center-content t)
     (setq dashboard-banner-logo-title "\t ")
@@ -845,7 +846,8 @@ Provides completion.
 #+end_src
 ** Docker
 #+begin_src emacs-lisp
-  (use-package dockerfile-mode)
+  (use-package dockerfile-mode
+    :mode (("Dockerfile.*\\'" . dockerfile-mode)))
 #+end_src
 ** Systemd
 #+begin_src emacs-lisp
@@ -861,5 +863,6 @@ Provides completion.
 #+end_src
 ** Jenkins
 #+begin_src emacs-lisp
-  (use-package jenkinsfile-mode)
+  (use-package jenkinsfile-mode
+    :mode (("Jenkinsfile.*\\'" . jenkinsfile-mode)))
 #+end_src
