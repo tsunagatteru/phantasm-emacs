@@ -45,10 +45,4 @@
 
 ;; Load config.org for init.el configuration
 (org-babel-load-file (expand-file-name "~/.emacs.d/config.org"))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(jenkinsfile-mode nginx-mode powershell systemd dockerfile-mode terraform-mode yaml-mode csharp-mode web-mode ghub treemacs-magit magit company-reftex company-auctex auctex markdown-mode json-mode go-mode geiser-mit helpful slime pyvenv lsp-pyright cmake-mode ccls sqlite3 company-prescient company-box company lsp-treemacs lsp-ui lsp-mode flycheck yasnippet projectile ranger ido-vertical-mode treemacs-icons-dired treemacs-evil treemacs undo-tree page-break-lines async switch-window beacon swiper which-key dashboard spaceline diminish auto-package-update multi-vterm vterm evil-org htmlize toc-org use-package)))
+
