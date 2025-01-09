@@ -19,8 +19,7 @@
 (require 'package)
 (setq package-enable-at-startup nil)
 (setq package-check-signature nil)
-(add-to-list 'package-archives
-        '("melpa" . "https://melpa.org/packages/"))
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (package-initialize)
 
 ;; Initialize use-package

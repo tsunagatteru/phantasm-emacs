@@ -700,6 +700,18 @@ Provides completion.
   (add-hook 'after-init-hook 'global-company-mode)
 #+end_src
 
+** =highlight-indent=
+
+Highlights indentation
+#+begin_src emacs-lisp
+  (use-package highlight-indent-guides
+         :hook ((text-mode . highlight-indent-guides-mode)
+           (prog-mode . highlight-indent-guides-mode)
+           (org-mode . highlight-indent-guides-mode)
+           (yaml-mode . highlight-indent-guides-mode)
+           (lsp-mode . highlight-indent-guides-mode)))
+  (setq highlight-indent-guides-method 'character)
+#+end_src
 ** Sqlite
 #+begin_src emacs-lisp
   (use-package sqlite3)
