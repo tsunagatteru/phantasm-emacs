@@ -507,7 +507,7 @@ Side-bar file and project explorer
             treemacs-space-between-root-nodes      t
             treemacs-tag-follow-cleanup            t
             treemacs-tag-follow-delay              1.5
-            treemacs-width                         30)
+            treemacs-width                         45)
       (treemacs-resize-icons 11)
 
       (treemacs-follow-mode t)
