@@ -828,10 +828,6 @@ Highlights indentation
 
   (use-package treemacs-magit
     :after treemacs magit)
-  
-  (use-package ghub
-    :demand t
-    :after magit)
 #+end_src
 
 ** Web-mode
@@ -852,6 +848,7 @@ Highlights indentation
   (use-package k8s-mode
   :ensure t
   :hook (k8s-mode . yas-minor-mode))
+  (add-hook 'yaml-mode-hook 'k8s-mode)
 #+end_src
 ** Terraform
 #+begin_src emacs-lisp
