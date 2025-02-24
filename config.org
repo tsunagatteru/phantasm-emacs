@@ -847,6 +847,7 @@ Highlights indentation
 #+begin_src emacs-lisp
   (use-package k8s-mode
   :ensure t
+  :mode (("\\.tpl\\'" . k8s-mode))
   :mode (("\\.yaml\\'" . k8s-mode)))
 #+end_src
 ** Terraform
