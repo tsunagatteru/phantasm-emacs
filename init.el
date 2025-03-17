@@ -39,8 +39,8 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :extend nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 100 :width normal :foundry "SRC" :family "Hack Nerd Font Mono")))))
 
-;; Load Witchmacs theme
-(load-theme 'Witchmacs t)
+(add-to-list 'initial-frame-alist '(fullscreen . maximized))
+(load-theme 'monokai t)
 
 ;; Load config.org for init.el configuration
 (org-babel-load-file (expand-file-name "~/.emacs.d/config.org"))
