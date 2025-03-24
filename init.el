@@ -39,6 +39,7 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :extend nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 100 :width normal :foundry "SRC" :family "Hack Nerd Font Mono")))))
 
+(add-hook 'emacs-startup-hook 'treemacs)
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 (load-theme 'monokai t)
 
@@ -51,4 +52,13 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(highlight-indent-guides ghub yaml-mode which-key web-mode use-package undo-tree treepy treemacs-magit treemacs-icons-dired treemacs-evil toc-org terraform-mode systemd switch-window swiper sqlite3 spaceline slime ranger pyvenv projectile powershell page-break-lines nginx-mode multi-vterm lsp-ui lsp-treemacs lsp-pyright json-mode jenkinsfile-mode ido-vertical-mode htmlize helpful go-mode geiser-mit flycheck evil-org dockerfile-mode diminish dashboard csharp-mode company-reftex company-prescient company-box company-auctex cmake-mode ccls beacon auto-package-update async)))
+   '(async beacon ccls cmake-mode company-auctex company-box
+		   company-prescient company-reftex csharp-mode dashboard
+		   diminish dockerfile-mode evil-org flycheck geiser-mit ghub
+		   go-mode helpful highlight-indent-guides htmlize
+		   ido-vertical-mode jenkinsfile-mode json-mode lsp-pyright
+		   lsp-treemacs lsp-ui multi-vterm nginx-mode page-break-lines
+		   powershell projectile pyvenv ranger slime spaceline sqlite3
+		   swiper switch-window systemd terraform-mode toc-org
+		   treemacs-evil treemacs-icons-dired treemacs-magit treepy
+		   undo-tree use-package web-mode which-key yaml-mode)))

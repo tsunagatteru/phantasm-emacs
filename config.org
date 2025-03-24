@@ -312,16 +312,6 @@ A fully-fledged terminal inside Emacs.
     :defer t)
 #+end_src
 * Use-package section                                                   :TOC:
-** =auto-package-update=
-Automatically updates and removes old packages
-#+BEGIN_SRC emacs-lisp
-  (use-package auto-package-update
-    :defer nil
-    :config
-    (setq auto-package-update-delete-old-versions t)
-    (setq auto-package-update-hide-results t)
-    (auto-package-update-maybe))
-#+END_SRC
 ** =diminish=
 Hides minor modes to prevent cluttering your mode line
 #+BEGIN_SRC emacs-lisp
