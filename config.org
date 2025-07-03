@@ -119,15 +119,6 @@ Minor quality-of-life modifications for a more pleasant Emacs experience
 #+BEGIN_SRC emacs-lisp
   (setq ring-bell-function 'ignore)
 #+END_SRC
-** Indentation
-#+BEGIN_SRC emacs-lisp
-  (setq-default tab-width 4)
-  (setq-default standard-indent 4)
-  (setq c-basic-offset tab-width)
-  (setq-default electric-indent-inhibit t)
-  (setq-default indent-tabs-mode t)
-  (setq backward-delete-char-untabify-method 'nil)
-#+END_SRC
 ** Enable prettify symbols mode
 #+BEGIN_SRC emacs-lisp
   (global-prettify-symbols-mode t)
@@ -173,6 +164,20 @@ Minor quality-of-life modifications for a more pleasant Emacs experience
 ** Fill spaces
 #+BEGIN_SRC emacs-lisp
   (setq frame-resize-pixelwise t)
+#+END_SRC
+** Indentation
+#+BEGIN_SRC emacs-lisp
+(use-package indent-bars
+  :hook ((k8s-mode) . indent-bars-mode)) ; or whichever modes you prefer
+(setq
+    indent-bars-color '(highlight :face-bg t :blend 0.15)
+    indent-bars-pattern "."
+    indent-bars-width-frac 0.5
+    indent-bars-pad-frac 0.25
+    indent-bars-zigzag nil
+    indent-bars-color-by-depth '(:regexp "outline-\\([0-9]+\\)" :blend 1) ; blend=1: blend with BG only
+    indent-bars-highlight-current-depth '(:blend 0.5) ; pump up the BG blend on current
+    indent-bars-display-on-blank-lines t)
 #+END_SRC
 * =Org= mode                                                            :TOC:
 Everything org mode related
@@ -493,7 +498,7 @@ Side-bar file and project explorer
             treemacs-show-hidden-files             t
             treemacs-silent-filewatch              nil
             treemacs-silent-refresh                nil
-            treemacs-sorting                       'alphabetic-desc
+            treemacs-sorting                       'alphabetic-asc
             treemacs-space-between-root-nodes      t
             treemacs-tag-follow-cleanup            t
             treemacs-tag-follow-delay              1.5
@@ -690,18 +695,6 @@ Provides completion.
   (add-hook 'after-init-hook 'global-company-mode)
 #+end_src
 
-** =highlight-indent=
-
-Highlights indentation
-#+begin_src emacs-lisp
-  (use-package highlight-indent-guides
-         :hook ((text-mode . highlight-indent-guides-mode)
-           (prog-mode . highlight-indent-guides-mode)
-           (org-mode . highlight-indent-guides-mode)
-           (yaml-mode . highlight-indent-guides-mode)
-           (lsp-mode . highlight-indent-guides-mode)))
-  (setq highlight-indent-guides-method 'character)
-#+end_src
 ** Sqlite
 #+begin_src emacs-lisp
   (use-package sqlite3)

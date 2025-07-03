@@ -29,36 +29,30 @@
 
 ;; Global package-ensure behavior
 (require 'use-package-ensure)
-  (setq use-package-always-ensure t)
+(setq use-package-always-ensure t)
 
+;;Set theme
+(use-package modus-themes)
+(require 'modus-themes)
+(load-theme 'modus-operandi :no-confirm)
+
+;;Startup with treemacs open
+(add-hook 'emacs-startup-hook 'treemacs)
+(add-to-list 'initial-frame-alist '(fullscreen . maximized))
+
+;; Load config.org for init.el configuration
+(org-babel-load-file (expand-file-name "~/.emacs.d/config.org"))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :extend nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 100 :width normal :foundry "SRC" :family "Hack Nerd Font Mono")))))
-
-(add-hook 'emacs-startup-hook 'treemacs)
-(add-to-list 'initial-frame-alist '(fullscreen . maximized))
-(load-theme 'monokai t)
-
-;; Load config.org for init.el configuration
-(org-babel-load-file (expand-file-name "~/.emacs.d/config.org"))
-
+ '(default ((t (:inherit nil :extend nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 100 :width normal :foundry "SRC" :family "Aporetic Sans Mono")))))
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(async beacon ccls cmake-mode company-auctex company-box
-		   company-prescient company-reftex csharp-mode dashboard
-		   diminish dockerfile-mode evil-org flycheck geiser-mit ghub
-		   go-mode helpful highlight-indent-guides htmlize
-		   ido-vertical-mode jenkinsfile-mode json-mode lsp-pyright
-		   lsp-treemacs lsp-ui multi-vterm nginx-mode page-break-lines
-		   powershell projectile pyvenv ranger slime spaceline sqlite3
-		   swiper switch-window systemd terraform-mode toc-org
-		   treemacs-evil treemacs-icons-dired treemacs-magit treepy
-		   undo-tree use-package web-mode which-key yaml-mode)))
+ '(highlight-indent-guides-auto-character-face-perc 50)
+ '(package-selected-packages nil))
