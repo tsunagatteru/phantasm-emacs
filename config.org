@@ -167,17 +167,23 @@ Minor quality-of-life modifications for a more pleasant Emacs experience
 #+END_SRC
 ** Indentation
 #+BEGIN_SRC emacs-lisp
-(use-package indent-bars
-  :hook ((k8s-mode) . indent-bars-mode)) ; or whichever modes you prefer
-(setq
-    indent-bars-color '(highlight :face-bg t :blend 0.15)
-    indent-bars-pattern "."
-    indent-bars-width-frac 0.5
-    indent-bars-pad-frac 0.25
-    indent-bars-zigzag nil
-    indent-bars-color-by-depth '(:regexp "outline-\\([0-9]+\\)" :blend 1) ; blend=1: blend with BG only
-    indent-bars-highlight-current-depth '(:blend 0.5) ; pump up the BG blend on current
-    indent-bars-display-on-blank-lines t)
+(setq-default tab-width 2)
+(setq-default indent-tabs-mode nil) ;; spaces instead of tabs
+(setq-default standard-indent 2)
+(setq c-basic-offset tab-width)
+(setq-default electric-indent-inhibit t)
+(setq backward-delete-char-untabify-method 'nil)
+  (use-package indent-bars
+    :hook ((k8s-mode) . indent-bars-mode)) ; or whichever modes you prefer
+  (setq
+      indent-bars-color '(highlight :face-bg t :blend 0.15)
+      indent-bars-pattern "."
+      indent-bars-width-frac 0.5
+      indent-bars-pad-frac 0.25
+      indent-bars-zigzag nil
+      indent-bars-color-by-depth '(:regexp "outline-\\([0-9]+\\)" :blend 1) ; blend=1: blend with BG only
+      indent-bars-highlight-current-depth '(:blend 0.5) ; pump up the BG blend on current
+      indent-bars-display-on-blank-lines nil)
 #+END_SRC
 * =Org= mode                                                            :TOC:
 Everything org mode related
